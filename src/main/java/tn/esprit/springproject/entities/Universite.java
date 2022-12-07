@@ -3,6 +3,9 @@ package tn.esprit.springproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -19,6 +22,7 @@ public class Universite implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nomUniv;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Departement> departements;
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lowagie.text.DocumentException;
 
-
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
+import tn.esprit.springproject.entities.TriunivDto;
 import tn.esprit.springproject.entities.Universite;
+import tn.esprit.springproject.repositories.UniversiteRepository;
 import tn.esprit.springproject.services.IUniversiteService;
 import tn.esprit.springproject.services.UniversitePDFExporter;
 
@@ -30,6 +33,8 @@ import tn.esprit.springproject.services.UniversitePDFExporter;
 public class UniversiteController {
 	@Autowired
 	IUniversiteService iu; // pour assurer le couplage faible
+	@Autowired
+	UniversiteRepository ur;
 
 	// http://localhost:8088/SpringMVC/servlet/retrieveAllUniversite
 	@CrossOrigin("*")
@@ -111,6 +116,20 @@ public class UniversiteController {
 			        UniversitePDFExporter exporter = new UniversitePDFExporter(listFactures);
 			        exporter.export(response);
 			         
+			    }
+		// http://localhost:8088/SpringMVC/servlet/depEtudUniv/{id}
+			    @ManagedOperation(description = "Nombre des Etudiant Par Universite")
+			    @GetMapping("depEtudUniv/{id}")
+			    public int nbrEtudiantInUniv(@PathVariable("id") Integer id) {
+			        return iu.nbrEtudiantInUniv(id);
+			    }
+
+			    
+			    // http://localhost:8088/SpringMVC/servlet/triUniv
+			    @ManagedOperation(description = "Tri Des Universites Par Nombre Etudiant")
+			    @GetMapping("triUniv")
+			    public List<TriunivDto> triUniv() {
+			        return iu.triUnivParEtudiant();
 			    }
 
 

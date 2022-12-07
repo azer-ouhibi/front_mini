@@ -3,6 +3,7 @@ package tn.esprit.springproject.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.springproject.entities.Departement;
+import tn.esprit.springproject.entities.TriunivDto;
 import tn.esprit.springproject.entities.Universite;
 import tn.esprit.springproject.repositories.DepartementRepository;
 import tn.esprit.springproject.repositories.UniversiteRepository;
@@ -51,5 +52,14 @@ public class UniversitieImpl implements IUniversiteService{
     		ss++;
 		}
     	return ss;
+    }
+    @Override
+    public int nbrEtudiantInUniv(Integer id) {
+        return universiteRepository.nbretudUniv(id);
+    }
+
+    @Override
+    public List<TriunivDto> triUnivParEtudiant() {
+        return universiteRepository.triuniv();
     }
 }

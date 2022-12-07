@@ -1,5 +1,6 @@
 package tn.esprit.springproject.services;
 
+import tn.esprit.springproject.entities.TriunivDto;
 import tn.esprit.springproject.entities.Universite;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface IUniversiteService {
     Universite retrieveUniversite (Integer id);
     void assignUniversiteToDepartement(Integer idUniversite, Integer idDepartement);
     Integer getUniversiteByDepartementNumber(Integer idUniv);
+    
+    public int nbrEtudiantInUniv(Integer id);
+
+    public List<TriunivDto> triUnivParEtudiant();
 }
