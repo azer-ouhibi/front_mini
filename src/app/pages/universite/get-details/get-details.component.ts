@@ -62,7 +62,9 @@ export class GetDetailsComponent implements OnInit {
 
   public SavePDF() {
 
-    var element = document.getElementById('contentToConvert') as HTMLElement;
+    var element = document.getElementById('content') as HTMLElement;
+    console.log(element)
+
     html2canvas(element).then(canvas => {
       var imgW = 200;
       var imgH = canvas.height * imgW / canvas.width;

@@ -44,6 +44,10 @@ export class UniversiteService {
     return this.http.put<Universite>(this.baseurl+"updateUniversite/",data,httpOptions);
   
   }
+  getUniversiteByDepartementNumber(id:any):Observable<number>
+  {
+    return this.http.get<number>(this.baseurl+"getUniversiteByDepartementNumber/"+id,httpOptions);
+  }
   
    
    
